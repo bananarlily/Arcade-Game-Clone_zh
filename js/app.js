@@ -15,6 +15,7 @@ Enemy.prototype.update = function(dt, x) {
     // 你应该给每一次的移动都乘以 dt 参数，以此来保证游戏在所有的电脑上
     // 都是以同样的速度运行的
 	this.x += dt * this.speed
+	//console.log(this.x);
 	if(this.x >= 505){
         this.x = -30;
     }
@@ -42,27 +43,16 @@ var Player = function (x, y) {
 	this.sprite = 'images/char-boy.png'
 };
 
-/*var count = 0;
-Player.prototype.update = function(dt){
-    //console.log(this.y);
-    if(this.y === -11){
-       count++;
-       //经过测试，经过3ms后，就可以实现到达河岸，并网页输出胜利指示，确定后，即可回到原位。
-       if(count%3 === 2){
-            alert("U win！！ 点击确定后进入下一盘游戏");
-            this.x = 200;
-            this.y = 404;
-       }
-    }
-};*/
+
 
 Player.prototype.update = function(dt){
-       if(this.y === -11){		   
-            alert("你成功了");
+       if(this.y === 0){		   
+            //alert("你成功了");
             this.x = 205;
-            this.y = 404;
+            this.y = 321;
        }
 	   console.log(this.y);
+	   console.log(this.x);
 };
 
 Player.prototype.render = function() {
@@ -70,6 +60,7 @@ Player.prototype.render = function() {
 };
 
 Player.prototype.handleInput = function(movement){
+	console.log(this.x+ "-----"+ this.y);
     switch(movement){
         case 'left':
         if(this.x>=0){
@@ -90,22 +81,14 @@ Player.prototype.handleInput = function(movement){
     }
 };
 
-/*Player.prototype.handleInput = function (movement) {
-  switch(movement) {
-    case 'left': this.x -= 101; break; 
-    case 'right': this.x += 101; break;
-    case 'up': this.y -= 83; break;
-    case 'down': this.y += 83; break;
-  }
-}*/
 
 Player.prototype.checkCollisions = function(){
     for(var i=0;i<allEnemies.length;i++){
         //首先判断player和enemy是否在同一行（此处因为我所设置的player和enemy是每一行所在位置的y坐标是相同的）
         if(this.y === allEnemies[i].y){
             if((Math.abs(this.x - allEnemies[i].x))<40){
-                this.x =200;
-                this.y =404;
+                this.x =205;
+                this.y =321;
             }
        }
     }
@@ -123,7 +106,7 @@ for(var i=0;i<6;i++){
     //将所有bugs都添加到allEnemies数组中
     allEnemies.push(bugs);
 };
-var player = new Player(205,404);
+var player = new Player(205,321);
 
 // 这段代码监听游戏玩家的键盘点击事件并且代表将按键的关键数字送到 Play.handleInput()
 // 方法里面。你不需要再更改这段代码了。
